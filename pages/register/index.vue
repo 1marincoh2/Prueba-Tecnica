@@ -108,7 +108,7 @@ interface State {
 
 const index = defineComponent({
  layout: "login",
-middleware: "authRedirect",
+//middleware: "authRedirect",
 
   setup(props,{root}) {
     const state = reactive<State>({
@@ -147,9 +147,7 @@ middleware: "authRedirect",
     onMounted(async () => {
     });
 
-     const logdirec = () => {
-         root.$router.push("/login");       
-     }
+   
     const saveUser = async () => {
       //@ts-ignore
       if (refs.value.validate()) {
@@ -204,7 +202,6 @@ middleware: "authRedirect",
       roles,
       saveUser,
       reset,
-      logdirec,   
       show3,     
       editar,
       loading,
