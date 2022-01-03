@@ -11,15 +11,22 @@
     >
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title justify="center" align="center">
+          <v-list-item-title style="margin-top: 30px">
             <LogoDrewer />
           </v-list-item-title>
-          <v-list-item-title style="margin-left: 15px">
-            {{ computedStore.email }}
+          <v-list-item-title>
+            <div class="mx-auto text-center">
+              <v-avatar size="50" color="#EA465B">
+                <v-icon dark> mdi-account-circle </v-icon>
+              </v-avatar>
+            </div>
+          </v-list-item-title>
+          <v-list-item-title>
+            <h1 class="text-center">{{ computedStore.name }}</h1>
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list>
+      <v-list v-if="computedStore.rol === 'Admin'">
         <v-list-item
           :class="ruta === 'reportes' ? 'focusSelect' : ''"
           link
@@ -48,6 +55,38 @@
           <v-list-item-title
             :class="ruta === 'usuarios' ? 'black--text ' : 'white--text '"
             >usuarios</v-list-item-title
+          >
+        </v-list-item>
+        <v-list-item
+          :class="ruta === 'configuracion' ? 'focusSelect' : ''"
+          link
+          to="/configuracion"
+        >
+          <v-list-item-icon>
+            <v-icon :color="ruta === 'configuracion' ? '#263238' : ''"
+              >mdi-cog-outline</v-icon
+            >
+          </v-list-item-icon>
+          <v-list-item-title
+            :class="ruta === 'configuracion' ? 'black--text ' : 'white--text '"
+            >Configuraciòn</v-list-item-title
+          >
+        </v-list-item>
+      </v-list>
+      <v-list v-else>
+        <v-list-item
+          :class="ruta === 'reportes' ? 'focusSelect' : ''"
+          link
+          to="/reportes"
+        >
+          <v-list-item-icon>
+            <v-icon :color="ruta === 'reportes' ? '#263238' : ''"
+              >mdi-briefcase-check</v-icon
+            >
+          </v-list-item-icon>
+          <v-list-item-title
+            :class="ruta === 'reportes' ? 'black--text ' : 'white--text '"
+            >Reportes</v-list-item-title
           >
         </v-list-item>
         <v-list-item
@@ -101,6 +140,7 @@ import {
 import Cookiesjs from "js-cookie";
 
 import Logo from "~/components/Logo.vue";
+
 import LogoDrewer from "~/components/LogoDrewer.vue";
 
 const index = defineComponent({

@@ -102,12 +102,11 @@ const index = defineComponent({
         rol: "",
       } as UserType,
     });
-    const datoId = root.$store.state.user.email;
+
     const show3 = ref(false);
     onMounted(async () => {
       getUsers();
       edit(state.user);
-      console.log(datoId, "hola desde configuraciones");
     });
 
     const UserUpgrade = async () => {
@@ -127,8 +126,8 @@ const index = defineComponent({
       try {
         const serviceUse = new UserService();
         const response = await serviceUse.userGet1(datoId);
-        console.log(response.data, datoId, "hola de getUsers");
-        state.user = response.data;
+        console.log(response, datoId, "hola de getUsers");
+        state.user = response;
       } catch (e) {}
     };
 

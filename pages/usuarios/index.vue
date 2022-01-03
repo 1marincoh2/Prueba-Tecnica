@@ -73,103 +73,115 @@
         </h1>
 
         <v-card elevation="0">
-          <v-row justify="center" align="center">
-            <v-col cols="6" sm="8" md="6">
-              <h3 class="text-center text--secondary d-flex text2">Nombre</h3>
-              <v-text-field
-                dense
-                v-model="state.user.name"
-                single-line
-                outlined
-              />
-            </v-col>
-            <v-col cols="6" sm="8" md="6">
-              <h3 class="text-center text--secondary d-flex text2">
-                Apellidos
-              </h3>
-              <v-text-field
-                v-model="state.user.lastName"
-                single-line
-                outlined
-                dense
-              />
-            </v-col>
-            <v-col cols="6" sm="8" md="6">
-              <h3 class="text-center text--secondary d-flex text2">Correo</h3>
-              <v-text-field
-                dense
-                v-model="state.user.email"
-                single-line
-                outlined
-              ></v-text-field>
-            </v-col>
-            <v-col cols="6" sm="8" md="6">
-              <h3 class="text-center text--secondary d-flex text2">
-                Contraseña
-              </h3>
-              <v-text-field
-                dense
-                v-model="state.user.password"
-                single-line
-                outlined
-                :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="show3 ? 'text' : 'password'"
-                class="input-group--focused"
-                @click:append="show3 = !show3"
-                style="border-radius: 10px"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="6" sm="8" md="6">
-              <h3 class="text-center text--secondary d-flex text2">
-                Rol en Plataforma
-              </h3>
-              <v-select
-                dense
-                :items="roles"
-                v-model="state.user.rol"
-                style="border-radius: 10px"
-                outlined
-              ></v-select>
-            </v-col>
+          <v-form ref="refs" lazy-validation>
+            <v-row justify="center" align="center">
+              <v-col cols="6" sm="8" md="6">
+                <h3 class="text-center text--secondary d-flex text2">Nombre</h3>
+                <v-text-field
+                  :rules="[rules.required, rules.min]"
+                  @keyup.enter="saveUser"
+                  dense
+                  v-model="state.user.name"
+                  single-line
+                  outlined
+                />
+              </v-col>
+              <v-col cols="6" sm="8" md="6">
+                <h3 class="text-center text--secondary d-flex text2">
+                  Apellidos
+                </h3>
+                <v-text-field
+                  :rules="[rules.required, rules.min]"
+                  @keyup.enter="saveUser"
+                  v-model="state.user.lastName"
+                  single-line
+                  outlined
+                  dense
+                />
+              </v-col>
+              <v-col cols="6" sm="8" md="6">
+                <h3 class="text-center text--secondary d-flex text2">Correo</h3>
+                <v-text-field
+                  :rules="loginEmailRules"
+                  @keyup.enter="saveUser"
+                  dense
+                  v-model="state.user.email"
+                  single-line
+                  outlined
+                ></v-text-field>
+              </v-col>
+              <v-col cols="6" sm="8" md="6">
+                <h3 class="text-center text--secondary d-flex text2">
+                  Contraseña
+                </h3>
+                <v-text-field
+                  :rules="[rules.required, rules.min]"
+                  @keyup.enter="saveUser"
+                  dense
+                  v-model="state.user.password"
+                  single-line
+                  outlined
+                  :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="show3 ? 'text' : 'password'"
+                  class="input-group--focused"
+                  @click:append="show3 = !show3"
+                  style="border-radius: 10px"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="6" sm="8" md="6">
+                <h3 class="text-center text--secondary d-flex text2">
+                  Rol en Plataforma
+                </h3>
+                <v-select
+                  :rules="[rules.required, rules.min]"
+                  @keyup.enter="saveUser"
+                  dense
+                  :items="roles"
+                  v-model="state.user.rol"
+                  style="border-radius: 10px"
+                  outlined
+                ></v-select>
+              </v-col>
 
-            <v-col cols="6" sm="8" md="6">
-              <v-card-actions>
-                <v-row align="center" justify="end">
-                  <v-btn @click="reset()" text color="primary">
-                    Cancelar
-                  </v-btn>
-                  <v-btn
-                    v-if="state.user.id === 0"
-                    align="center"
-                    color="#23B8E3"
-                    small
-                    x-large
-                    style="border-radius: 10px"
-                    width="159px"
-                    Height="28px"
-                    class="white--text"
-                    @click="saveUser()"
-                  >
-                    Crear
-                  </v-btn>
-                  <v-btn
-                    v-else
-                    align="center"
-                    color="#23B8E3"
-                    small
-                    x-large
-                    style="border-radius: 10px"
-                    width="159px"
-                    Height="28px"
-                    class="white--text"
-                    @click="userUp()"
-                  >
-                    Actualizar
-                  </v-btn>
-                </v-row>
-              </v-card-actions></v-col
-            >
-          </v-row>
+              <v-col cols="6" sm="8" md="6">
+                <v-card-actions>
+                  <v-row align="center" justify="end">
+                    <v-btn @click="reset()" text color="primary">
+                      Cancelar
+                    </v-btn>
+                    <v-btn
+                      v-if="state.user.id === 0"
+                      align="center"
+                      color="#23B8E3"
+                      small
+                      x-large
+                      style="border-radius: 10px"
+                      width="159px"
+                      Height="28px"
+                      class="white--text"
+                      @click="saveUser()"
+                    >
+                      Crear
+                    </v-btn>
+                    <v-btn
+                      v-else
+                      align="center"
+                      color="#23B8E3"
+                      small
+                      x-large
+                      style="border-radius: 10px"
+                      width="159px"
+                      Height="28px"
+                      class="white--text"
+                      @click="userUp()"
+                    >
+                      Actualizar
+                    </v-btn>
+                  </v-row>
+                </v-card-actions></v-col
+              >
+            </v-row>
+          </v-form>
         </v-card>
       </v-card>
     </v-col>
@@ -208,8 +220,23 @@ const index = defineComponent({
     const roles = ["Admin", "Usuario"];
     const show3 = ref(false);
 
-    const Estadosform = ref(null);
-    const camporequerido = [(v: string) => !!v || "Required"];
+    const notification = reactive({
+      active: false,
+      timeout: 2000,
+      text: "",
+      color: "orange",
+    });
+    const loading = ref(false);
+    const loginEmailRules = [
+      (v: string) => !!v || "Required",
+      (v: string) => /.+@.+\..+/ || "E-mail must be valid",
+    ];
+
+    const rules = {
+      required: (value: string) => !!value || "Required.",
+      min: (v: string) => (v && v.length >= 4) || "Min 4 characters",
+    };
+    const refs = ref(null);
 
     onMounted(async () => {
       getUsers();
@@ -226,14 +253,27 @@ const index = defineComponent({
 
     const saveUser = async () => {
       //@ts-ignore
-
-      try {
-        const serviceUser = new UserService();
-        const service = await serviceUser.userPost(state.user);
-        state.users.push(service);
-      } catch (response) {}
-      reset();
-      getUsers();
+      if (refs.value.validate()) {
+        try {
+          loading.value = true;
+          const serviceUser = new UserService();
+          const service = await serviceUser.userPost(state.user);
+          loading.value = false;
+          state.users.push(service);
+        } catch (response) {
+          loading.value = false;
+          console.log("error en validacion");
+          notification.text = "Usuario o Contraseña Incorrecta";
+          notification.color = "red";
+          notification.active = true;
+        }
+        reset();
+        getUsers();
+      } else {
+        console.log("error en validacion");
+        notification.text = "complete los campos";
+        notification.active = true;
+      }
     };
     const DeleteUser = async (data: UserType) => {
       try {
@@ -286,8 +326,11 @@ const index = defineComponent({
 
     return {
       state,
-      camporequerido,
-      Estadosform,
+      notification,
+      loading,
+      loginEmailRules,
+      refs,
+      rules,
       roles,
       saveUser,
       reset,

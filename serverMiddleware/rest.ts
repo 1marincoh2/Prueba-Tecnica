@@ -42,9 +42,11 @@ app.post("/auth/login", (req: any, res: any) => {
     .value();
 
   if (consulta) {
+    console.log(consulta);
     res.status(200);
     res.send({
-      data: req.body,
+      data: consulta,
+
       isloggin: true,
     });
   } else {

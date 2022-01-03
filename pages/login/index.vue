@@ -117,7 +117,7 @@ const index = defineComponent({
           const serviceUse = new AuthService();
           const response = await serviceUse.loginPost(state.user);
           loading.value = false;
-          console.log(response);
+          console.log(response.data, "hola dde loguin");
           root.$store.commit("setLoggedIn", true);
           root.$store.commit("setUser", response.data);
           //@ts-ignore

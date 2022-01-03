@@ -1,19 +1,19 @@
 {
   "usuario": [
     {
-      "id": 1,
-      "name": "marin",
-      "email": "jose@admin.com",
-      "password": "marincoh",
-      "lastName": "jose",
-      "rol": "admin"
+      "id": 3,
+      "name": "alberto",
+      "email": "jose@user.como",
+      "password": "user1",
+      "lastName": "marin coh",
+      "rol": "Usuario"
     },
     {
-      "id": 2,
-      "name": "jose alberto ",
-      "email": "josealberto@admin.com",
-      "password": "marincoh",
-      "lastName": "marin coh",
+      "id": 4,
+      "name": "Jose",
+      "email": "marin@admin.com",
+      "password": "admin1",
+      "lastName": "Marin",
       "rol": "Admin"
     }
   ],

@@ -158,6 +158,7 @@ const index = defineComponent({
         const service = await serviceUser.userPost(state.user);
            loading.value = true;
         state.users.push(service);
+    
         
       } catch (response) {
          loading.value = false;
