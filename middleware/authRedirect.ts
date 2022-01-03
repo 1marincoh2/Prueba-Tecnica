@@ -5,6 +5,7 @@ declare module "@nuxt/types" {
     userAgent?: string;
   }
 }
+
 const Auth: Middleware = ({
   store,
   redirect,

@@ -68,7 +68,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-app-bar clipped-left fixed color=" primary" class="white--text" app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-app-bar-nav-icon color="#FDFDFD" @click.stop="drawer = !drawer" />
       <v-toolbar-title> <Logo /></v-toolbar-title>
       <v-toolbar-title v-text="title" />
       <v-spacer />

@@ -108,7 +108,7 @@ interface State {
 
 const index = defineComponent({
  layout: "login",
- middleware: "authRedirect",
+middleware: "authRedirect",
 
   setup(props,{root}) {
     const state = reactive<State>({

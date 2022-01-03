@@ -7,8 +7,8 @@
       <v-spacer />
       <v-toolbar-items class="hidden-sm-and-down">
         <v-spacer />
-        <v-btn text class="white--text" to="/login"> Login </v-btn>
-        <v-btn text class="white--text" to="/register"> Registro </v-btn>
+        <v-btn text class="white--text" link to="/login"> Login </v-btn>
+        <v-btn text class="white--text" link to="/register"> Registro </v-btn>
       </v-toolbar-items>
     </v-app-bar>
     <v-main>

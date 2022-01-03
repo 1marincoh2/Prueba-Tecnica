@@ -74,7 +74,6 @@
 import { computed, defineComponent, ref } from "@nuxtjs/composition-api";
 
 const index = defineComponent({
-  layout: "login",
   middleware: "authRedirect",
   setup(prop, { root }) {
     const show3 = ref(false);
