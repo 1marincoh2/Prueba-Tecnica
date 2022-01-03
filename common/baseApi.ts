@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 class ApiService {
-  public host = "http://localhost:3000/api";
+  public host = "/api";
 
   Http: AxiosInstance = axios.create({
     timeout: 50000,
