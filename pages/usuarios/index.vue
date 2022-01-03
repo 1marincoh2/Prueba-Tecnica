@@ -146,18 +146,22 @@
               <v-col cols="6" sm="8" md="6">
                 <v-card-actions>
                   <v-row align="center" justify="end">
-                    <v-btn @click="reset()" text color="primary">
+                    <v-btn
+                      small
+                      width="159px"
+                      @click="reset()"
+                      text
+                      color="error"
+                    >
                       Cancelar
                     </v-btn>
                     <v-btn
+                      elevation="3"
                       v-if="state.user.id === 0"
                       align="center"
-                      color="#23B8E3"
-                      small
-                      x-large
+                      color="primary"
                       style="border-radius: 10px"
                       width="159px"
-                      Height="28px"
                       class="white--text"
                       @click="saveUser()"
                     >
@@ -165,13 +169,11 @@
                     </v-btn>
                     <v-btn
                       v-else
-                      align="center"
-                      color="#23B8E3"
-                      small
-                      x-large
-                      style="border-radius: 10px"
                       width="159px"
-                      Height="28px"
+                      elevation="3"
+                      align="center"
+                      color="#E44066"
+                      style="border-radius: 10px"
                       class="white--text"
                       @click="userUp()"
                     >

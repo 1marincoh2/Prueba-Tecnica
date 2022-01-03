@@ -68,7 +68,17 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn block color="primary"> registrar</v-btn>
+
+          <v-btn @click="cancelar()" text color="error"> Cancelar </v-btn>
+          <v-btn
+            align="center"
+            color="#E44066"
+            style="border-radius: 10px"
+            class="white--text"
+            @click="UserUpgrade()"
+          >
+            Actualizar
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
