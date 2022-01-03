@@ -1,8 +1,8 @@
 export interface UserType {
-    id:number;
-    name:string;
-    email: string;
-    password: string;
-    username:string;
-    rol:string
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+  lastName: string;
+  rol: string;
 }

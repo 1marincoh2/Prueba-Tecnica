@@ -1,30 +1,25 @@
 <template>
-  <v-app>
+  <v-app dark>
     <v-navigation-drawer
-      fixed
-      permanent
-      app
       dark
       color="#263238"
-      width=" 250px"
-      style=" border-radius: 20px 0px 0px 20px"
+      v-model="drawer"
+      clipped
+      fixed
       class="white--text"
+      app
     >
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title style="margin-top:30px">
-            <LogoLogin />
+          <v-list-item-title justify="center" align="center">
+            <LogoDrewer />
           </v-list-item-title>
-
-          <v-list-item-title style="margin-left:15px">
-            <v-list-item-subtitle style="margin-top:20px">
-              Hola
-            </v-list-item-subtitle>
-            {{ computedStore.name }}
+          <v-list-item-title style="margin-left: 15px">
+            {{ computedStore.email }}
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list v-if="computedStore.rol === 'Admin'">
+      <v-list>
         <v-list-item
           :class="ruta === 'reportes' ? 'focusSelect' : ''"
           link
@@ -71,50 +66,17 @@
           >
         </v-list-item>
       </v-list>
-      <v-list v-else>
-        <v-list-item
-          :class="ruta === 'reportes' ? 'focusSelect' : ''"
-          link
-          to="/reportes"
-        >
-          <v-list-item-icon>
-            <v-icon :color="ruta === 'reportes' ? '#263238' : ''"
-              >mdi-briefcase-check</v-icon
-            >
-          </v-list-item-icon>
-          <v-list-item-title
-            :class="ruta === 'reportes' ? 'black--text ' : 'white--text '"
-            >Reportes</v-list-item-title
-          >
-        </v-list-item>
-        <v-list-item
-          :class="ruta === 'configuracion' ? 'focusSelect' : ''"
-          link
-          to="/configuracion"
-        >
-          <v-list-item-icon>
-            <v-icon :color="ruta === 'configuracion' ? '#263238' : ''"
-              >mdi-cog-outline</v-icon
-            >
-          </v-list-item-icon>
-          <v-list-item-title
-            :class="ruta === 'configuracion' ? 'black--text ' : 'white--text '"
-            >Configuraciòn</v-list-item-title
-          >
-        </v-list-item>
-      </v-list>
-       <template v-slot:append>
-        <div class="pa-2">
-          <v-btn block  outlined
-      color="indigo"  @click="logout()">
-           Cerrar Sesion<v-icon>mdi-power-standby</v-icon>
-          </v-btn>
-        </div>
-      </template>
-     
     </v-navigation-drawer>
-
-    <v-main style="margin-left:40px">
+    <v-app-bar clipped-left fixed color=" primary" class="white--text" app>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-toolbar-title> <Logo /></v-toolbar-title>
+      <v-toolbar-title v-text="title" />
+      <v-spacer />
+      <v-btn icon @click="logout()" color="#FDFDFD">
+        <v-icon>mdi-power-standby</v-icon>
+      </v-btn>
+    </v-app-bar>
+    <v-main>
       <v-container>
         <Nuxt />
       </v-container>
@@ -133,14 +95,23 @@ import {
   useMeta,
   reactive,
   useRoute,
-  onMounted
+  onMounted,
 } from "@nuxtjs/composition-api";
 //@ts-ignore
 import Cookiesjs from "js-cookie";
+
+import Logo from "~/components/Logo.vue";
+import LogoDrewer from "~/components/LogoDrewer.vue";
+
 const index = defineComponent({
-  setup(prop, { root }) {
+  setup(props, { root }) {
+    const clipped = ref(false);
+    const drawer = ref(false);
     const fixed = ref(false);
+
     const miniVariant = ref(false);
+    const right = ref(true);
+    const rightDrawer = ref(false);
     const title = " prueba tecnica";
 
     const router = useRoute();
@@ -153,27 +124,33 @@ const index = defineComponent({
       return router.value.name;
     });
 
-     const logout = async () => {
-          //@ts-ignore
-        Cookiesjs.remove("isAuth" );
-        Cookiesjs.remove("Auth");
-     
-      root.$router.push('/login')
-    }
+    const logout = async () => {
+      //@ts-ignore
+      Cookiesjs.remove("isAuth");
+      //@ts-ignore
+
+      Cookiesjs.remove("Auth");
+
+      root.$router.push("/login");
+    };
     onMounted(() => {
       console.log(router);
     });
 
     return {
-      fixed,
       miniVariant,
       title,
       computedStore,
       router,
       ruta,
-      logout
+      logout,
+      clipped,
+      drawer,
+      right,
+      rightDrawer,
+      fixed,
     };
-  }
+  },
 });
 export default index;
 </script>

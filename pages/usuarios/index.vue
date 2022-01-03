@@ -1,159 +1,177 @@
 <template>
   <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="12">
-      <h1 class="  d-flex text1" style="margin: 30px ">
-        <v-avatar
-          color="#28ABE7"
-          size="26"
-          class="white--text "
-          style="margin-right: 30px;"
-        >
-          1
-        </v-avatar>
+      <v-card
+        elevation="5"
+        class="pa-4 justify-center mx-auto"
+        rounded="lg"
+        style="border-radius: 10px"
+      >
+        <h1 class="d-flex text1" style="margin: 30px">
+          <v-avatar
+            color="#28ABE7"
+            size="26"
+            class="white--text"
+            style="margin-right: 30px"
+          >
+            1
+          </v-avatar>
 
-        Lista de Usuario
-      </h1>
+          Lista de Usuario
+        </h1>
 
-      <v-simple-table>
-        <template v-slot:default>
-          <thead>
-            <tr class="table1 mb-1 mt-1">
-              <th class="text-left">
-                USUARIO
-              </th>
-              <th class="text-left">
-                NOMBRE
-              </th>
-              <th class="text-left">
-                CORREO
-              </th>
-              <th class="text-left">
-                ROL
-              </th>
-              <th class="text-left"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              class="app-table mb-1 mt-1"
-              v-for="item in state.users"
-              :key="item.name"
-            >
-              <td>{{ item.username }}</td>
-              <td>{{ item.name }}</td>
-              <td>{{ item.email }}</td>
-              <td>{{ item.rol }}</td>
+        <v-simple-table>
+          <template v-slot:default>
+            <thead>
+              <tr class="table1 mb-1 mt-1">
+                <th class="text-left">NOMBRE</th>
+                <th class="text-left">APELLIDOS</th>
+                <th class="text-left">CORREO</th>
+                <th class="text-left">ROL</th>
+                <th class="text-left"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                class="app-table mb-1 mt-1"
+                v-for="item in state.users"
+                :key="item.name"
+              >
+                <td>{{ item.name }}</td>
+                <td>{{ item.lastName }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.rol }}</td>
 
-              <td>
-                <v-icon @click="DeleteUser(item)" small>
-                  mdi-delete
-                </v-icon>
-                <v-icon @click="editar(item)" small>
-                  mdi-pencil
-                </v-icon>
-              </td>
-            </tr>
-          </tbody>
-        </template>
-      </v-simple-table>
+                <td>
+                  <v-icon @click="DeleteUser(item)" small> mdi-delete </v-icon>
+                  <v-icon @click="editar(item)" small> mdi-pencil </v-icon>
+                </td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+      </v-card>
     </v-col>
     <v-col cols="12" sm="8" md="12">
-      <h1 class="  d-flex text1" style="margin: 30px ">
-        <v-avatar
-          color="#28ABE7"
-          size="26"
-          class="white--text "
-          style="margin-right: 30px;"
-        >
-          2
-        </v-avatar>
-
-        Nuevo Usuario
-      </h1>
-
-      <v-row justify="center" align="center">
-        <v-col cols="12" sm="8" md="6">
-          <v-card elevation="0">
-            <h3 class="text-center text--secondary  d-flex text2">
-              Usuario
-            </h3>
-            <v-text-field v-model="state.user.username" single-line outlined />
-            <h3 class="text-center text--secondary  d-flex text2">
-              Correo
-            </h3>
-            <v-text-field
-              v-model="state.user.email"
-              single-line
-              outlined
-            ></v-text-field>
-
-            <h3 class="text-center text--secondary  d-flex text2">
-              Rol en Plataforma
-            </h3>
-            <v-select
-              :items="roles"
-              v-model="state.user.rol"
-              style="border-radius: 10px;"
-              outlined
-            ></v-select>
-          </v-card>
-        </v-col>
-
-        <v-col cols="12" sm="8" md="6">
-          <v-card elevation="0" style="margin-top: -101px ">
-            <h3 class="text-center text--secondary  d-flex text2">
-              Nombre
-            </h3>
-            <v-text-field v-model="state.user.name" single-line outlined />
-            <h3 class="text-center text--secondary  d-flex text2">
-              Contraseña
-            </h3>
-            <v-text-field
-              v-model="state.user.password"
-              single-line
-              outlined
-              :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-              :type="show3 ? 'text' : 'password'"
-              class="input-group--focused"
-              @click:append="show3 = !show3"
-              style="border-radius: 10px;"
-            ></v-text-field>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-col>
-    <v-col cols="12" sm="8" md="12" align="end">
-      <v-btn @click="reset()" text color="primary">
-        Cancelar
-      </v-btn>
-      <v-btn
-        v-if="state.user.id === 0"
-        align="center"
-        color="#23B8E3"
-        small
-        x-large
-        style="border-radius: 10px;"
-        width="159px"
-        Height="28px"
-        class="white--text "
-        @click="saveUser()"
+      <v-card
+        elevation="5"
+        class="pa-4 justify-center mx-auto"
+        rounded="lg"
+        style="border-radius: 10px"
       >
-        Crear
-      </v-btn>
-      <v-btn
-        v-else
-        align="center"
-        color="#23B8E3"
-        small
-        x-large
-        style="border-radius: 10px;"
-        width="159px"
-        Height="28px"
-        class="white--text "
-        @click="userUp()"
-      >
-        Actualizar
-      </v-btn>
+        <h1 class="d-flex text1" style="margin: 30px">
+          <v-avatar
+            color="#28ABE7"
+            size="26"
+            class="white--text"
+            style="margin-right: 30px"
+          >
+            2
+          </v-avatar>
+
+          Nuevo Usuario
+        </h1>
+
+        <v-card elevation="0">
+          <v-row justify="center" align="center">
+            <v-col cols="6" sm="8" md="6">
+              <h3 class="text-center text--secondary d-flex text2">Nombre</h3>
+              <v-text-field
+                dense
+                v-model="state.user.name"
+                single-line
+                outlined
+              />
+            </v-col>
+            <v-col cols="6" sm="8" md="6">
+              <h3 class="text-center text--secondary d-flex text2">
+                Apellidos
+              </h3>
+              <v-text-field
+                v-model="state.user.lastName"
+                single-line
+                outlined
+                dense
+              />
+            </v-col>
+            <v-col cols="6" sm="8" md="6">
+              <h3 class="text-center text--secondary d-flex text2">Correo</h3>
+              <v-text-field
+                dense
+                v-model="state.user.email"
+                single-line
+                outlined
+              ></v-text-field>
+            </v-col>
+            <v-col cols="6" sm="8" md="6">
+              <h3 class="text-center text--secondary d-flex text2">
+                Contraseña
+              </h3>
+              <v-text-field
+                dense
+                v-model="state.user.password"
+                single-line
+                outlined
+                :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="show3 ? 'text' : 'password'"
+                class="input-group--focused"
+                @click:append="show3 = !show3"
+                style="border-radius: 10px"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="6" sm="8" md="6">
+              <h3 class="text-center text--secondary d-flex text2">
+                Rol en Plataforma
+              </h3>
+              <v-select
+                dense
+                :items="roles"
+                v-model="state.user.rol"
+                style="border-radius: 10px"
+                outlined
+              ></v-select>
+            </v-col>
+
+            <v-col cols="6" sm="8" md="6">
+              <v-card-actions>
+                <v-row align="center" justify="end">
+                  <v-btn @click="reset()" text color="primary">
+                    Cancelar
+                  </v-btn>
+                  <v-btn
+                    v-if="state.user.id === 0"
+                    align="center"
+                    color="#23B8E3"
+                    small
+                    x-large
+                    style="border-radius: 10px"
+                    width="159px"
+                    Height="28px"
+                    class="white--text"
+                    @click="saveUser()"
+                  >
+                    Crear
+                  </v-btn>
+                  <v-btn
+                    v-else
+                    align="center"
+                    color="#23B8E3"
+                    small
+                    x-large
+                    style="border-radius: 10px"
+                    width="159px"
+                    Height="28px"
+                    class="white--text"
+                    @click="userUp()"
+                  >
+                    Actualizar
+                  </v-btn>
+                </v-row>
+              </v-card-actions></v-col
+            >
+          </v-row>
+        </v-card>
+      </v-card>
     </v-col>
   </v-row>
 </template>
@@ -162,7 +180,7 @@ import {
   defineComponent,
   ref,
   onMounted,
-  reactive
+  reactive,
 } from "@nuxtjs/composition-api";
 import { UserService } from "~/common/users.service";
 import { UserType } from "~/type/users.model";
@@ -183,9 +201,9 @@ const index = defineComponent({
         name: "",
         email: "",
         password: "",
-        username: "",
-        rol: ""
-      } as UserType
+        lastName: "",
+        rol: "",
+      } as UserType,
     });
     const roles = ["Admin", "Usuario"];
     const show3 = ref(false);
@@ -201,8 +219,8 @@ const index = defineComponent({
       try {
         const serviceUse = new UserService();
         const response = await serviceUse.userGet();
-        console.log(response.data.data);
-        state.users = response.data.data;
+        console.log(response.usuarios);
+        state.users = response.usuarios;
       } catch (e) {}
     };
 
@@ -222,7 +240,7 @@ const index = defineComponent({
         const serviceuser = new UserService();
         const serviceDelete = await serviceuser.userDelete(data);
         const findIndex1 = state.users.findIndex(
-          indice => indice.id === data.id
+          (indice) => indice.id === data.id
         );
         if (findIndex1 > -1) {
           state.users.splice(findIndex1, 1);
@@ -232,12 +250,13 @@ const index = defineComponent({
         console.log("error", response);
       }
     };
+
     const userUp = async () => {
       try {
         const serviceuser = new UserService();
         const serviceUpdate = await serviceuser.userPatch(state.user);
         const findIndex1 = state.users.findIndex(
-          indice => indice.id === state.user.id
+          (indice) => indice.id === state.user.id
         );
         if (findIndex1 > -1) {
           // @ts-ignore
@@ -256,8 +275,8 @@ const index = defineComponent({
         name: "",
         email: "",
         password: "",
-        username: "",
-        rol: ""
+        lastName: "",
+        rol: "",
       } as UserType;
     };
 
@@ -275,9 +294,9 @@ const index = defineComponent({
       DeleteUser,
       show3,
       userUp,
-      editar
+      editar,
     };
-  }
+  },
 });
 export default index;
 </script>

@@ -1,9 +1,8 @@
-import type { Context, Middleware } from '@nuxt/types'
+import type { Context, Middleware } from "@nuxt/types";
 
-
-declare module '@nuxt/types' {
+declare module "@nuxt/types" {
   interface Context {
-    userAgent?: string
+    userAgent?: string;
   }
 }
 
@@ -12,13 +11,11 @@ const Auth: Middleware = ({
   redirect,
   req,
   route,
-  isClient
+  isClient,
 }: Context) => {
- 
   if (route.path === "/") {
-    return redirect('/reportes')
+    return redirect("/reportes");
   }
-  
-}
+};
 
-export default Auth
+export default Auth;

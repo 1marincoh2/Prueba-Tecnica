@@ -1,15 +1,11 @@
 <template>
-  <img
-    class="VuetifyLogo"
-    alt="Vuetify Logo"
-    src="/vuetify-logo.svg"
-  >
+  <v-img class="my-3 logo" contain height="100" alt="Logo" src="/logo1.png" />
 </template>
 
 <style>
-.VuetifyLogo {
-  height: 180px;
-  width: 180px;
+.logo {
+  height: 50px;
+  width: 50px;
   transform: rotateY(560deg);
   animation: turn 3.5s ease-out forwards 1s;
 }

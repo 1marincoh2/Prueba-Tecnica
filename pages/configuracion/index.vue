@@ -1,74 +1,74 @@
 <template>
   <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="4" justify="center" align="center">
-      <v-card elevation="0">
-        <v-card-title class=" d-flex justify-center">
-          <h1 class="  d-flex text1" style="margin-top: -30px">
-            Configuraciòn
-          </h1>
+    <v-col cols="12" sm="8" md="6">
+      <v-card
+        class="pa-4 justify-center mx-auto"
+        rounded="lg"
+        max-width="500"
+        style="border-radius: 10px"
+      >
+        <v-card-title class="justify-center">
+          <h3 class="d-flex text6">Configuraciòn</h3>
         </v-card-title>
+        <v-card-text>
+          <v-row>
+            <v-col cols="6">
+              <h3 class="text--secondary d-flex text2">Nombre(s)</h3>
+              <v-text-field
+                v-model="state.user.name"
+                dense
+                single-line
+                outlined
+                style="border-radius: 5px"
+                label="Ingrese su Nombre"
+              />
+            </v-col>
+            <v-col cols="6">
+              <h3 class="text--secondary d-flex text2">Apellido(s)</h3>
+              <v-text-field
+                v-model="state.user.lastName"
+                outlined
+                single-line
+                dense
+                label="Ingrese sus apellido(s)"
+                required
+                style="border-radius: 5px"
+              ></v-text-field>
+            </v-col>
 
-        <v-card-text style="margin-top: 30px">
-          <h3 class="text-center   d-flex text2" style="margin-bottom: 15px">
-            Usuario
-          </h3>
-          <v-text-field
-            v-model="state.user.username"
-            single-line
-            outlined
-            style="border-radius: 10px "
-          />
-          <h3 class="text-center  d-flex text2" style="margin-bottom: 15px">
-            Nombre
-          </h3>
-          <v-text-field
-            v-model="state.user.name"
-            single-line
-            outlined
-            style="border-radius: 10px;"
-          />
-          <h3 class="text-center d-flex text2" style="margin-bottom: 15px">
-            Correo
-          </h3>
-          <v-text-field
-            v-model="state.user.email"
-            single-line
-            outlined
-            style="border-radius: 10px;"
-          />
-          <h3
-            class="text-center text--secondary  d-flex text2"
-            style="margin-bottom: 15px"
-          >
-            Contraseña
-          </h3>
-          <v-text-field
-            v-model="state.user.password"
-            style="border-radius: 10px;"
-            single-line
-            outlined
-            :type="show3 ? 'text' : 'password'"
-            class="input-group--focused"
-            @click:append="show3 = !show3"
-          ></v-text-field>
+            <v-col cols="12">
+              <h3 class="text--secondary d-flex text2">Correo Electronico</h3>
+              <v-text-field
+                v-model="state.user.email"
+                outlined
+                single-line
+                dense
+                label="Ingrese su Correo"
+                required
+                style="border-radius: 5px"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <h3 class="text-center text--secondary d-flex text2">
+                ingrese su contraseña
+              </h3>
+              <v-text-field
+                outlined
+                v-model="state.user.password"
+                dense
+                single-line
+                style="border-radius: 5px"
+                label="Ingrese su contraseña"
+                :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="show3 ? 'text' : 'password'"
+                @click:append="show3 = !show3"
+              ></v-text-field>
+            </v-col>
+          </v-row>
         </v-card-text>
-
-        <v-card-actions class=" d-flex justify-center">
-          <v-btn @click="cancelar()" text color="primary">
-            Cancelar
-          </v-btn>
-          <v-btn
-            align="center"
-            color="#23B8E3"
-            x-large
-            style="border-radius: 10px;"
-            width="150px"
-            height="50px"
-            class="white--text "
-            @click="UserUpgrade()"
-          >
-            Guardar
-          </v-btn>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn block color="primary"> registrar</v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -80,7 +80,7 @@ import {
   ref,
   onMounted,
   reactive,
-  computed
+  computed,
 } from "@nuxtjs/composition-api";
 import { UserService } from "~/common/users.service";
 import { UserType } from "~/type/users.model";
@@ -91,54 +91,46 @@ interface State {
 
 const index = defineComponent({
   middleware: "authRedirect",
-  setup(prop,{root}) {
+  setup(prop, { root }) {
     const state = reactive<State>({
-     user: {
+      user: {
         id: 0,
         name: "",
         email: "",
         password: "",
-        username: "",
-        rol: ""
-      } as UserType
+        lastName: "",
+        rol: "",
+      } as UserType,
     });
-    
-
-   
-     
+    const datoId = root.$store.state.user.email;
     const show3 = ref(false);
     onMounted(async () => {
-            getUsers()
-            edit(state.user)
-            
-           
-   });
-    
-    const UserUpgrade = async () => {
+      getUsers();
+      edit(state.user);
+      console.log(datoId, "hola desde configuraciones");
+    });
 
+    const UserUpgrade = async () => {
       try {
         const serviceUser = new UserService();
-       const serviceUpdate = await serviceUser.userPatch(state.user); 
-            cancelar()
+        const serviceUpdate = await serviceUser.userPatch(state.user);
+        cancelar();
       } catch (response) {
         console.log("error", response);
       }
 
       console.log("estoy actualizando");
     };
-      
-      
 
-const getUsers = async () => {
-    const datoId =root.$store.state.user.id
-           try {
+    const getUsers = async () => {
+      const datoId = root.$store.state.user.id;
+      try {
         const serviceUse = new UserService();
         const response = await serviceUse.userGet1(datoId);
-        console.log(response.data);
+        console.log(response.data, datoId, "hola de getUsers");
         state.user = response.data;
       } catch (e) {}
     };
-
 
     const cancelar = () => {
       state.user = {
@@ -146,24 +138,21 @@ const getUsers = async () => {
         name: "",
         email: "",
         password: "",
-        username: "",
-        rol: ""
+        lastName: "",
+        rol: "",
       } as UserType;
     };
     const edit = (user: UserType) => {
       state.user = user;
-    
     };
     return {
       show3,
       state,
       cancelar,
-     UserUpgrade,
-    
-     edit
-
+      UserUpgrade,
+      edit,
     };
-  }
+  },
 });
 export default index;
 </script>
@@ -181,5 +170,6 @@ export default index;
   font-family: Montserrat;
   font-size: 18px;
   color: #676161;
-}</style
->style="margin-top:20px"
+}
+</style>
+style="margin-top:20px"

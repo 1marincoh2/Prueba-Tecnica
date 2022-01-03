@@ -1,48 +1,61 @@
 <template>
   <v-row justify="center" align="center">
-    <v-col cols="12"  sm="12" md="12" lg="12"  xl="12"
->
-      <h1 class=" text-title  d-flex justify-center">
-        Reportes
-     
-      </h1>
-      <v-expansion-panels focusable>
-        <v-subheader class="text1">PROGRAMA</v-subheader>
-        <v-subheader class="text1" style="margin-left: 100px;"
-          >TOTAL DE INSCRITOS</v-subheader
-        >
-        <v-spacer></v-spacer><v-subheader class="text1">DETALLE</v-subheader>
-        <v-expansion-panel v-for="item in state.studens" :key="item.id">
-          <v-expansion-panel-header disable-icon-rotate
-            ><h2 class="text-panel" >{{ item.numero }}</h2>
-            <h2 class="text-panel" style="margin-right: 570px;">{{ item.total }}</h2></v-expansion-panel-header
+    <v-col cols="12" sm="12" md="12" lg="12" xl="12">
+      <v-card
+        elevation="2"
+        class="pa-4 justify-center mx-auto"
+        rounded="lg"
+        style="border-radius: 10px"
+      >
+        <h1 class="text-title d-flex justify-center">Reportes</h1>
+        <v-expansion-panels focusable>
+          <v-subheader class="text1">PROGRAMA</v-subheader>
+          <v-subheader class="text1" style="margin-left: 100px"
+            >TOTAL DE INSCRITOS</v-subheader
           >
+          <v-spacer></v-spacer><v-subheader class="text1">DETALLE</v-subheader>
+          <v-expansion-panel
+            v-for="items in state.studens"
+            :key="items.program"
+          >
+            <v-expansion-panel-header disable-icon-rotate
+              ><h2 class="text-panel">{{ items.program }}</h2>
+              <h2 class="text-panel" style="margin-right: 570px">
+                {{ items.inscribed }}
+              </h2></v-expansion-panel-header
+            >
 
-          <v-expansion-panel-content>
-         <p class="text-left text1" style="margin-left:30px">ALUMNO</p>
-            <p class="text2" >FECHA DE INSCRIPCION</p>
-            <v-simple-table>
-              
-              <tbody>
-                <tr
-                  class="app-table mb-1 mt-1"
-                  v-for="child in item.students"
-                  :key="child.title"
-                >
-                  <td style="width:82%" class="text-xs-left">{{ child.name}}</td>
-                  <td  class="text-xs-left">{{ child.registeDate }}</td>
-                </tr>
-              </tbody>
-            </v-simple-table>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-  
+            <v-expansion-panel-content>
+              <p class="text-left text1" style="margin-left: 30px">ALUMNO</p>
+              <p class="text2">FECHA DE INSCRIPCION</p>
+              <v-simple-table>
+                <tbody>
+                  <tr
+                    class="app-table mb-1 mt-1"
+                    v-for="child in items.students"
+                    :key="child.name"
+                  >
+                    <td style="width: 82%" class="text-xs-left">
+                      {{ child.name }}
+                    </td>
+                    <td class="text-xs-left">{{ child.dates }}</td>
+                  </tr>
+                </tbody>
+              </v-simple-table>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-card>
     </v-col>
   </v-row>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, ref,computed,reactive } from "@nuxtjs/composition-api";
+import {
+  defineComponent,
+  onMounted,
+  reactive,
+  computed,
+} from "@nuxtjs/composition-api";
 import { ReportService } from "~/common/report.service";
 import { ReporType } from "~/type/report.model";
 
@@ -54,89 +67,36 @@ interface State {
 const index = defineComponent({
   middleware: "authRedirect",
 
-  setup(prop,{root}) {
-
- const state = reactive<State>({
+  setup(prop, { root }) {
+    const state = reactive<State>({
       studens: [],
       studen: {
-        id: 0,
-    name: "",
-    type:"",
-    registeDate: ""
-      } as ReporType
+        students: [{ name: "", dates: 0 }],
+        program: "",
+        inscribed: 0,
+      } as ReporType,
     });
-      
-   const compu = computed (()=>{
-    
-    return root.$store.state
 
-   }) 
-        
+    const compu = computed(() => {
+      return root.$store.state;
+    });
+    onMounted(() => {
+      compu;
+      getStudens();
+    });
 
-
-     onMounted(
-       ()=>{
-
-      compu
-      getStudens()
-     
-      }
-       )
-
-
-
-    const items = [
-      {
-        
-        items: [
-          { title: "Breakfast & brunch" },
-          { title: "New American" },
-          { title: "Sushi" }
-        ],
-        title: "Programa 1",
-        title1: "123"
-      },
-      {
-        items: [
-          { title: "Breakfast & brunch2" },
-          { title: "New American" },
-          { title: "Sushi" }
-        ],
-        title: "Programa 2",
-        title1: "2,403"
-      },
-      {
-        items: [
-          { title: "Breakfast & brunch3" },
-          { title: "New American" },
-          { title: "Sushi" }
-        ],
-        title: "programa 3",
-        title1: "1,223"
-      }
-    ];
-   
-    
-
-
-
-   
     const getStudens = async () => {
       try {
         const serviceUse = new ReportService();
         const response = await serviceUse.StudensGet();
-        console.log(response);
-        state.studens = response;
+        // console.log(response.reportes, "hola desde reportes");
+        state.studens = response.reportes;
       } catch (e) {}
     };
-
     return {
-      items,
       state,
-  
-    
-     };
-  }
+    };
+  },
 });
 export default index;
 </script>
@@ -217,32 +177,22 @@ table {
   margin-left: 830px;
 }
 
-.text-title{
-  
- font-family: Montserrat;
-font-size: 46px;
-font-style: normal;
-font-weight: 700;
-line-height: 59px;
-letter-spacing: 0em;
-text-align: center;
-
-
+.text-title {
+  font-family: Montserrat;
+  font-size: 46px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 59px;
+  letter-spacing: 0em;
+  text-align: center;
 }
-.text-panel{
-  
-font-family: Montserrat;
-font-size: 18px;
-font-style: normal;
-font-weight: 700;
-line-height: 22px;
-letter-spacing: 0em;
-text-align: left;
-
-
-
+.text-panel {
+  font-family: Montserrat;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
 }
-
-
-
 </style>

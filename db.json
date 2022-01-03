@@ -1,0 +1,76 @@
+{
+  "usuario": [
+    {
+      "id": 1,
+      "name": "marin",
+      "email": "jose@admin.com",
+      "password": "marincoh",
+      "lastName": "jose",
+      "rol": "admin"
+    },
+    {
+      "id": 2,
+      "name": "jose alberto ",
+      "email": "josealberto@admin.com",
+      "password": "marincoh",
+      "lastName": "marin coh",
+      "rol": "Admin"
+    }
+  ],
+  "reportes": [
+    {
+      "students": [
+        {
+          "name": "Maria",
+          "dates": "19/02/2020"
+        },
+        {
+          "name": "Romina",
+          "dates": "18/02/2020"
+        },
+        {
+          "name": "Pepe",
+          "dates": "19/04/2020"
+        }
+      ],
+      "program": "Programa 1",
+      "inscribed": "123"
+    },
+    {
+      "students": [
+        {
+          "name": "Pedro",
+          "dates": "19/02/2019"
+        },
+        {
+          "name": "America",
+          "dates": "19/02/2021"
+        },
+        {
+          "name": "Sushi",
+          "dates": "15/12/2020"
+        }
+      ],
+      "program": "Programa 2",
+      "inscribed": "2,403"
+    },
+    {
+      "students": [
+        {
+          "name": "Juan",
+          "dates": "19/02/2010"
+        },
+        {
+          "name": "Jose",
+          "dates": "19/02/2011"
+        },
+        {
+          "name": "Luis",
+          "dates": "19/02/2019  "
+        }
+      ],
+      "program": "programa 3",
+      "inscribed": "1,223"
+    }
+  ]
+}

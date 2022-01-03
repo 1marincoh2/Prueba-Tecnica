@@ -1,6 +1,5 @@
 export interface ReporType {
-    id: number,
-    name: string,
-    type:string,
-    registeDate: string
+  program: string;
+  inscribed: number;
+  students: [{ name: string; dates: number }];
 }
